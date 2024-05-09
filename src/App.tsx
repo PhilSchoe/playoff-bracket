@@ -3,13 +3,14 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 import { getAllPlayoffGames } from "./api/games-controller";
+import { parseGames } from "./logic/games-parser";
 
 function App() {
   const [count, setCount] = useState(0);
 
   getAllPlayoffGames()
     .then((games: string) => {
-      console.log(games);
+      parseGames(games.data);
     })
     .catch((error: Error) => {
       console.error(error);
