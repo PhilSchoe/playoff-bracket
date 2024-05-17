@@ -1,4 +1,5 @@
 import Game from "../types/game";
+import Series from "../types/series";
 
 export function parseGames(gamesJson: []): void {
   if (!gamesJson) {
@@ -8,16 +9,43 @@ export function parseGames(gamesJson: []): void {
   const series = new Map<string, Series>();
 
   gamesJson.forEach((game: Game) => {
-    console.log(game);
-
     const homeTeam = game.home_team;
     const visitorTeam = game.visitor_team;
 
     const seriesKey = homeTeam.abbreviation + visitorTeam.abbreviation;
+    const reverseSeriesKey = visitorTeam.abbreviation + homeTeam.abbreviation;
+
     if (series.has(seriesKey)) {
+      updateSeries(game, series, seriesKey);
+    } else if (series.has(reverseSeriesKey)) {
+      updateSeries(game, series, reverseSeriesKey);
     } else {
+      createSeries(game, series, seriesKey);
     }
   });
+
+  console.log(series);
 }
 
-function createSeries(games: Game): Series {}
+function createSeries(
+  game: Game,
+  seriesMap: Map<string, Series>,
+  key: string
+): void {
+  const series = new Series(game.home_team, game.visitor_team);
+  series.updateWins(game);
+
+  seriesMap.set(key, series);
+}
+
+function updateSeries(
+  game: Game,
+  seriesMap: Map<string, Series>,
+  key: string
+): void {
+  const currentSeries = seriesMap.get(key);
+  if (currentSeries) {
+    currentSeries.updateWins(game);
+    seriesMap.set(key, currentSeries);
+  }
+}
