@@ -1,14 +1,14 @@
 import Game from "../types/game";
 import Series from "../types/series";
 
-export function parseGames(gamesJson: []): void {
-  if (!gamesJson) {
+export function parseGames(games: Game[]): void {
+  if (!games) {
     return;
   }
 
   const series = new Map<string, Series>();
 
-  gamesJson.forEach((game: Game) => {
+  games.forEach((game: Game) => {
     const homeTeam = game.home_team;
     const visitorTeam = game.visitor_team;
 

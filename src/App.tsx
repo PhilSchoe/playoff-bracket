@@ -4,13 +4,14 @@ import viteLogo from "/vite.svg";
 import "./App.css";
 import { getAllPlayoffGames } from "./api/games-controller";
 import { parseGames } from "./logic/games-parser";
+import Game from "./types/game";
 
 function App() {
   const [count, setCount] = useState(0);
 
   getAllPlayoffGames()
-    .then((games: string) => {
-      parseGames(games.data);
+    .then((games: Game[]) => {
+      parseGames(games);
     })
     .catch((error: Error) => {
       console.error(error);

@@ -1,8 +1,9 @@
 import RestConnectionHandler from "./rest-connection-handler";
+import Game from "../types/game";
 
 const GAMES_URL = "https://api.balldontlie.io/v1/games";
 
-export async function getAllPlayoffGames(): Promise<string> {
+export async function getAllPlayoffGames(): Promise<Game[]> {
   const endpoint = GAMES_URL + "?postseason=true&per_page=100&seasons[]=2023";
 
   try {
@@ -12,7 +13,7 @@ export async function getAllPlayoffGames(): Promise<string> {
     );
     const playoffGamesData = await playoffGames.json();
 
-    return playoffGamesData;
+    return playoffGamesData.data;
   } catch (error) {
     return Promise.reject(error);
   }
