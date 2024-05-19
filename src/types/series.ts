@@ -65,6 +65,26 @@ export default class Series {
     return this.firstTeam;
   }
 
+  public getSecondTeam(): Team {
+    return this.secondTeam;
+  }
+
+  public getFirstTeamWins(): number {
+    const wins = this.wins.get(this.firstTeam.id);
+    if (wins) {
+      return wins;
+    }
+    return -1;
+  }
+
+  public getSecondTeamWins(): number {
+    const wins = this.wins.get(this.secondTeam.id);
+    if (wins) {
+      return wins;
+    }
+    return -1;
+  }
+
   /**
    * Checks if the provided home team ID and visitor team ID match the IDs of the first and second teams in the series.
    * @param homeTeamId The ID of the home team.

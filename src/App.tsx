@@ -4,6 +4,7 @@ import { getAllPlayoffGames } from "./api/games-controller";
 import { parseGames } from "./logic/games-parser";
 import Game from "./types/game";
 import Series from "./types/series";
+import PlayoffSeries from "./components/playoff-series";
 
 function App() {
   const [series, setSeries] = useState<Series[]>();
@@ -23,7 +24,7 @@ function App() {
   const playoffBracket = [];
   if (series) {
     series.forEach((series: Series) => {
-      playoffBracket.push(<h1>{series.getFirstTeam().name}</h1>);
+      playoffBracket.push(<PlayoffSeries series={series}></PlayoffSeries>);
     });
   } else {
     playoffBracket.push(<h1>Loading Data</h1>);
