@@ -1,9 +1,9 @@
 import Game from "../types/game";
 import Series from "../types/series";
 
-export function parseGames(games: Game[]): void {
+export function parseGames(games: Game[]): Map<string, Series> | null {
   if (!games) {
-    return;
+    return null;
   }
 
   const series = new Map<string, Series>();
@@ -25,6 +25,8 @@ export function parseGames(games: Game[]): void {
   });
 
   console.log(series);
+
+  return series;
 }
 
 function createSeries(

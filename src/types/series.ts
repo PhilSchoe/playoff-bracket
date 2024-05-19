@@ -61,6 +61,10 @@ export default class Series {
     }
   }
 
+  public getFirstTeam(): Team {
+    return this.firstTeam;
+  }
+
   /**
    * Checks if the provided home team ID and visitor team ID match the IDs of the first and second teams in the series.
    * @param homeTeamId The ID of the home team.
