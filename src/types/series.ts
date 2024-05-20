@@ -71,17 +71,19 @@ export default class Series {
 
   public getFirstTeamWins(): number {
     const wins = this.wins.get(this.firstTeam.id);
-    if (wins) {
+    if (wins != null) {
       return wins;
     }
+
     return -1;
   }
 
   public getSecondTeamWins(): number {
     const wins = this.wins.get(this.secondTeam.id);
-    if (wins) {
+    if (wins != null) {
       return wins;
     }
+
     return -1;
   }
 
