@@ -1,0 +1,14 @@
+.playoff-series {
+  text-align: center;
+  border: solid white;
+  border-radius: 10px;
+  padding: 0.5em;
+
+  &__first-team {
+    border-bottom: solid white;
+  }
+
+  &__second-team {
+    border-top: solid white;
+  }
+}
