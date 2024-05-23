@@ -1,6 +1,8 @@
 import Game from "./game";
 import Team from "./team";
 
+type Conference = "East" | "West" | "Final";
+
 /**
  * Represents a playoff series of between two teams.
  * Keeps track of the number of wins for each team in the series.
@@ -9,6 +11,7 @@ export default class Series {
   private firstTeam: Team;
   private secondTeam: Team;
   private wins: Map<number, number>;
+  private conference: Conference;
 
   /**
    * Initializes a new instance of the Series class with the specified first and second teams.
@@ -23,6 +26,8 @@ export default class Series {
       [firstTeam.id, 0],
       [secondTeam.id, 0],
     ]);
+
+    this.conference = this.determinConference();
   }
 
   /**
@@ -69,6 +74,10 @@ export default class Series {
     return this.secondTeam;
   }
 
+  public getConference(): Conference {
+    return this.conference;
+  }
+
   public getFirstTeamWins(): number {
     const wins = this.wins.get(this.firstTeam.id);
     if (wins != null) {
@@ -99,5 +108,13 @@ export default class Series {
       (visitorTeamId === this.firstTeam.id ||
         visitorTeamId === this.secondTeam.id)
     );
+  }
+
+  private determinConference(): Conference {
+    if (this.firstTeam.conference === this.secondTeam.conference) {
+      return this.firstTeam.conference as Conference;
+    } else {
+      return "Final";
+    }
   }
 }

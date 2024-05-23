@@ -1,3 +1,4 @@
+import styles from "./playoff-bracket.module.scss";
 import { useEffect, useState } from "react";
 import { getAllPlayoffGames } from "../api/games-controller";
 import { parseGames } from "../logic/games-parser";
@@ -20,14 +21,27 @@ export default function PlayoffBracket() {
       });
   }, []);
 
-  const playoffBracket = [];
+  const easternSeries = [];
+  const westernSeries = [];
   if (series) {
     series.forEach((series: Series) => {
-      playoffBracket.push(<PlayoffSeries series={series}></PlayoffSeries>);
+      const playoffSeriesComponent = <PlayoffSeries series={series} />;
+
+      if (series.getConference() === "East") {
+        easternSeries.push(playoffSeriesComponent);
+      } else if (series.getConference() === "West") {
+        westernSeries.push(playoffSeriesComponent);
+      }
     });
   } else {
-    playoffBracket.push(<h1>Loading Data</h1>);
+    easternSeries.push(<h1>Loading Data</h1>);
+    westernSeries.push(<h1>...</h1>);
   }
 
-  return <div>{playoffBracket}</div>;
+  return (
+    <div className={styles["playoff-bracket"]}>
+      <div>{easternSeries}</div>
+      <div>{westernSeries}</div>
+    </div>
+  );
 }
